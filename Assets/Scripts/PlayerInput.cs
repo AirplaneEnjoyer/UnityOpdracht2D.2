@@ -40,7 +40,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
         {
             print("Ik heb D ingedrukt");
             transform.position += new Vector3(1, 0, 0) * Time.deltaTime * _speed;
-            Rotate(0, 0, 0);
             Debug.Log("rechts");
         }
 
@@ -48,7 +47,6 @@ public class NewMonoBehaviourScript : MonoBehaviour
         {
             print("Ik heb A ingedrukt");
             transform.position -= new Vector3(1, 0, 0) * Time.deltaTime * _speed;
-            Rotate(0, 180, 0);
             Debug.Log("links");
         }
     }
@@ -66,9 +64,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
             Coin += CoinValue.GetScoreWorth();
             print(Coin);
             Destroy(collision.gameObject);
-
-            _coinText.text = "Score: " + Coin.ToString();
-            coinSound.Play();
+            
+           
         }
     }
 
