@@ -1,22 +1,23 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private float _speed = 5;
     [SerializeField] private string _coinTag = "Coin";
     [SerializeField] private TMP_Text _coinText;
 
-    private int Coin = 0;
+    private int _coinValue = 0;
     private int _score = 0;
 
     public AudioSource coinSound;
+
+    public int Coin { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -24,52 +25,41 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            print("Ik heb W ingedrukt");
+            Debug.Log("Ik heb W ingedrukt - boven");
             transform.position += new Vector3(0, 1, 0) * Time.deltaTime * _speed;
-            Debug.Log("boven");
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            print("Ik heb S ingedrukt");
+            Debug.Log("Ik heb S ingedrukt - beneden");
             transform.position -= new Vector3(0, 1, 0) * Time.deltaTime * _speed;
-            Debug.Log("beneden");
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            print("Ik heb D ingedrukt");
+            Debug.Log("Ik heb D ingedrukt - rechts");
             transform.position += new Vector3(1, 0, 0) * Time.deltaTime * _speed;
-            Rotate(0, 0, 0);
-            Debug.Log("rechts");
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            print("Ik heb A ingedrukt");
+            Debug.Log("Ik heb A ingedrukt - links");
             transform.position -= new Vector3(1, 0, 0) * Time.deltaTime * _speed;
-            Rotate(0, 180, 0);
-            Debug.Log("links");
         }
     }
 
-    private void Rotate(int v1, int v2, int v3)
-    {
-        throw new NotImplementedException();
-    }
-
+    // Handle collisions with coin objects
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        CoinValue CoinValue;
-        if (collision.gameObject.CompareTag(_coinTag) && collision.gameObject.TryGetComponent<CoinValue>(out CoinValue))
+        CoinValue coinValue;
+      
+      if (collision.gameObject.CompareTag(_coinTag) && collision.gameObject.TryGetComponent<CoinValue>(out coinValue))
         {
-            Coin += CoinValue.GetScoreWorth();
-            print(Coin);
-            Destroy(collision.gameObject);
+         Coin += coinValue.GetScoreWorth();
+         print(Coin);
+         Destroy(collision.gameObject);
 
-            _coinText.text = "Score: " + Coin.ToString();
-            coinSound.Play();
+            _coinText.text = "Coins: " + Coin;
         }
     }
-
 }
