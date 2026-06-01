@@ -8,8 +8,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private string _coinTag = "Coin";
     [SerializeField] private TMP_Text _coinText;
 
-    private int _coinValue = 0;
-    private int _score = 0;
+    
 
     public AudioSource coinSound;
 
