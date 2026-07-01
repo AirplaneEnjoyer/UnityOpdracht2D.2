@@ -7,8 +7,11 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private float _speed = 5;
     [SerializeField] private string _coinTag = "Coin";
     [SerializeField] private TMP_Text _coinText;
+    [SerializeField] private string _speedUpTag = "SpeedUp";
+    [SerializeField] private string _speedDownTag = "SpeedDown";
 
-    
+    private int _coinValue = 0;
+    private int _score = 0;
 
     public AudioSource coinSound;
 
@@ -51,14 +54,15 @@ public class PlayerInput : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         CoinValue coinValue;
-      
-      if (collision.gameObject.CompareTag(_coinTag) && collision.gameObject.TryGetComponent<CoinValue>(out coinValue))
+
+        if (collision.gameObject.CompareTag(_coinTag) && collision.gameObject.TryGetComponent<CoinValue>(out coinValue))
         {
          Coin += coinValue.GetScoreWorth();
          print(Coin);
          Destroy(collision.gameObject);
 
             _coinText.text = "Coins: " + Coin;
+            coinSound.Play();
         }
     }
 }

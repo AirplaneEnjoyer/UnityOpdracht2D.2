@@ -1,13 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
-    private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
+    public void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Finish"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            print("You Won!!!");
-            Debug.Log("You Won!!!");
+            SceneManager.LoadScene("ExitGame");
         }
     }
 }
